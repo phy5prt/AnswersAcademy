@@ -57,18 +57,24 @@ export class PersonEdit {
         //from the bind
         //these values are a person update
         //were in a ts should it be a javascript object amd them converted when receive
-        PersonUpdate personToUpdate = new PersonUpdate{
-        Authorised = this.person.authorised,
-        Enabled = this.person.enabled,
-        Colours = this.person.colours
+        // PersonUpdate personToUpdate = new PersonUpdate{
+        // Authorised = this.person.authorised,
+        // Enabled = this.person.enabled,
+        // Colours = this.person.colours
+        // };
+
+
+        //says newly updated so am I supposed to be using the name updates
+        //dont need type doing it for my sanity
+        var personsUpdate = {
+            Authorised: this.person.authorised,
+            Enabled: this.person.enabled,
+            Colours: this.person.colours
         };
 
-        //dont need type doing it for my sanity
-        var personToUpdate = {
-            Authorised : this.person.authorised,
-            Enabled : this.person.enabled,
-            Colours : this.person.colours
-        };
+        //dont know why but think i can grab id like this
+
+       var personsToUpdateId =  ${ this.person.id  };
 
         //think this needs sending to this somehow
         // [HttpPut("{id}")]
@@ -78,12 +84,24 @@ export class PersonEdit {
         //this.personFetched(await personResponse.json());
         //javascript would be app.put
         
-        
+        // postData('Update', {:}) - something liek this
 
         //with an id i could send this to update but what is the update
+        //the word in the '/****' is the word after app in the route at the top of the controller
         //think i send it with httpput{id}
         //or //this.router.navigate('id'); but id has two definition but only one takes
-        //information so ... 
+
+        //fetch('https://example.com/profile/avatar', {
+        //method: 'PUT',
+       //     body: formData
+   // })
+
+       // httpClient.fetch('http://jsonplaceholder.typicode.com/posts/1', {
+       //     method: "PUT",
+       //     body: JSON.stringify(myUpdateData)
+      //  })
+
+        //information so ...
 
         //does the update function actually do the navigating??
 
@@ -96,7 +114,18 @@ export class PersonEdit {
         //this.router.navigate('list');
 
 
-    throw new Error('Not Implemented');
+       // https://www.tutorialspoint.com/aurelia/aurelia_http.htm - clues
+
+        //we receive a person currently not a JSON
+      //var UpdatedPersonReturned = await this.http.fetch(`/people/${params.id:this.personsToUpdateId, params.personUpdate: personsUpdate }`);
+        // var UpdatedPersonReturned = await this.http.fetch(`/ people / ${personsToUpdateId, personsUpdate }`);
+        var UpdatedPersonReturned = await this.http.fetch(`/ people / ${this.person.id, personsUpdate}`);
+
+        //maybe better to send a string or something 
+        //check list is the route
+        if (UpdatedPersonReturned != NotFoundResult ) { this.router.navigate('list'); }
+
+        throw new Error('Not Implemented');
   }
 
   cancel() {
