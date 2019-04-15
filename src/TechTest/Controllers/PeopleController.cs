@@ -26,13 +26,13 @@ namespace TechTest.Controllers
             // people returned from PeopleRepository then an empty
             // JSON array should be returned.
 
-            //HttpHet attribute stops/changes default routing?
-            //route is api/people
+            
 
             //should i use system.runtime.serialization.Json
             //using System.Web.Script.Serialization;
             //string output = new JavaScriptSerializer().Serialize(ListOfMyObject);
-            //should i be using "OK result"
+
+            
 
 
             List<Person> allPeopleFound = PersonRepository.GetAll();
@@ -57,17 +57,17 @@ namespace TechTest.Controllers
             // If null is returned from the PeopleRepository with
             // the supplied id then a NotFound should be returned.
 
-            //running search twice and do i need protections against id key
-            //isnt unique due to an input error - nope that should happen where it is got from
 
             if (PersonRepository.Get(id) != null)
             {
                 personFound = PersonRepository.Get(id);
+
+
                 return personFound;
             }
             else
             {
-                //not sure how this works
+                //check http code
                 return NotFoundResult();
             }
 
@@ -89,41 +89,40 @@ namespace TechTest.Controllers
             // If null is returned from the PeopleRepository then a
             // NotFound should be returned.
 
-
-
-            //it takes in a person spits out a person
-            //it uses an id from the person
-            //personUpdate doesnt provide a person so must have to find it with id
-
-            //put into a line later
-            //may change if i have to change previous step return type
-
-
-            //when i use this in step 7 i will be receiving a javaobject which is
-            //the same pretty similar to json
-            //so will need to convert it
-            //also i think when it asks for the api i think it means the api httpput
+            //dont understand the method is not written to receive a json object but instead an int and personUpdate
+            //do i need to be turning the data i send into id and person update?
+            
 
           
             personUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<PersonUpdate>(personUpdate);
             //if receive as var may need to cast id (or assumed by method)
             var personToUpdate = Get(id);
-            if (personToUpdate = NotFoundResult) { return NotFoundResult(); }
+            if (personToUpdate = NotFoundResult) {
+                //check the httpcodes
+                return NotFoundResult(); }
             else
             {
-                //wrong
-
-                Person personWithUpdates = new Person
+                //try catch may not be necessary and may mess with the async?
+                try
                 {
-                    id = person.id,
-                    FirstName = person.FirstName,
-                    LastName = person.LastName,
-                    Authorised = personUpdate.Authorised,
-                    Enabled = personUpdate.Enabled,
-                    Colours = personUpdate.Colours
-                };
-               
-                return PersonRepository.Update(person);
+                    Person personWithUpdates = new Person
+                    {
+                        id = id,
+                        FirstName = person.FirstName,
+                        LastName = person.LastName,
+                        Authorised = personUpdate.Authorised,
+                        Enabled = personUpdate.Enabled,
+                        Colours = personUpdate.Colours
+                    };
+
+                    PersonRepository.Update(person);
+
+
+                    //check the http codes
+                    return OkObjectResult();
+                }
+                //check the http codes
+                catch { return NotFoundResult(); }
             }
 
             throw new NotImplementedException();

@@ -13,20 +13,19 @@ export class ColourNamesValueConverter {
     //
     // Example: 'Blue, Green, Red'
 
-      //its a ts not CS does that mean i should be coding in something else
 
 
-      //string coloursStr = "";
-     // string commaSpace = ", ";
+
+     
 
       var coloursStr: string = "";
       var commaSpace: string = ", ";
 
-      //assuming colours is a list
 
-      //if sort available
+
+      
             colours.sort();
-      //var i: number = 0;
+      
       for (var i= 0; i < colours.length; i++) {
 
           //last one no comma

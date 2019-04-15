@@ -37,11 +37,10 @@ export class Person implements IPerson {
     //
     // Example: 'Bo Bob' is a palindrome.
 
-      //aurelias computed from function
-      //remove spaces
-      //could find middle point or go past the middlepoint for luck
-      //run the compare using word[(i)] == word[length -1 -i] if not equal return false
-      //only need to check to midpoint
+     
+     
+     
+ 
 
 
       //probably leave as var as not C#
@@ -56,7 +55,8 @@ export class Person implements IPerson {
 
           if (noSpacesLowerCaseStr[i] !== noSpacesLowerCaseStr[noSpacesLowerCaseStr.length -1 -i]
               ) {
-              //if alway get false maybe were only returning from the loop
+
+              //when testing if always get false maybe were only returning from the loop
               return false;
           }
       }

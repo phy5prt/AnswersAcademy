@@ -45,85 +45,71 @@ export class PersonEdit {
         // the user should be navigated to the list page.
 
 
-        //step 1 get the values
-        //step 2 update the person and receive that person with a callback
-        //step 3 send json request to the api
-        //step 4 use if to check response and
-        //route to listpage if successful
-
-        //need to be able to log what receive from submit
-        //you do that using aurelia forms checked.bind
-
-        //from the bind
-        //these values are a person update
-        //were in a ts should it be a javascript object amd them converted when receive
-        // PersonUpdate personToUpdate = new PersonUpdate{
-        // Authorised = this.person.authorised,
-        // Enabled = this.person.enabled,
-        // Colours = this.person.colours
-        // };
-
-
-        //says newly updated so am I supposed to be using the name updates
-        //dont need type doing it for my sanity
+        //send a json request but the method doesnt want a json object but instruction for it says it does in step 3
+      
+         //here im grabbing the person made by person fetched
         var personsUpdate = {
             Authorised: this.person.authorised,
             Enabled: this.person.enabled,
             Colours: this.person.colours
         };
 
-        //dont know why but think i can grab id like this
+       
+       
+       var personsToUpdateId =  this.person.id;
 
-       var personsToUpdateId =  ${ this.person.id  };
-
-        //think this needs sending to this somehow
-        // [HttpPut("{id}")]
-        //public IActionResult Update(int id, PersonUpdate personUpdate)
-        // or use this like above
-        //const personResponse = await this.http.fetch(`/people/${params.id}`);
-        //this.personFetched(await personResponse.json());
-        //javascript would be app.put
         
-        // postData('Update', {:}) - something liek this
-
-        //with an id i could send this to update but what is the update
-        //the word in the '/****' is the word after app in the route at the top of the controller
-        //think i send it with httpput{id}
-        //or //this.router.navigate('id'); but id has two definition but only one takes
-
-        //fetch('https://example.com/profile/avatar', {
-        //method: 'PUT',
-       //     body: formData
-   // })
-
-       // httpClient.fetch('http://jsonplaceholder.typicode.com/posts/1', {
-       //     method: "PUT",
-       //     body: JSON.stringify(myUpdateData)
-      //  })
-
-        //information so ...
-
-        //does the update function actually do the navigating??
-
-      //checked bind holds the values
-      //${person.authorised} may work maybe need to use something before like
-      //control which is the div class or field  or something from submit
-      //do i need model.bind to connect to the model.cs
-
-        //if the update function doesnt navigate (its put not get)
-        //this.router.navigate('list');
+        // this is where im going to try and send my object to, there is only one put so not sure i need id parameter [HttpPut("{id}")]
+        
 
 
+      //bind holds the values when the form activates the submit
+      
+
+        //Thoughts
        // https://www.tutorialspoint.com/aurelia/aurelia_http.htm - clues
+         //https://github.com/mdn/fetch-examples - looked at
+        //other links didnt help
+       
 
-        //we receive a person currently not a JSON
+      //if id refered not to the HTTP{id} but to the the method requiring (int id)  then the following may make more sense
       //var UpdatedPersonReturned = await this.http.fetch(`/people/${params.id:this.personsToUpdateId, params.personUpdate: personsUpdate }`);
-        // var UpdatedPersonReturned = await this.http.fetch(`/ people / ${personsToUpdateId, personsUpdate }`);
-        var UpdatedPersonReturned = await this.http.fetch(`/ people / ${this.person.id, personsUpdate}`);
+      //but i think the attribute is clarifying the route
 
-        //maybe better to send a string or something 
-        //check list is the route
-        if (UpdatedPersonReturned != NotFoundResult ) { this.router.navigate('list'); }
+     
+
+        //import { HttpClient, json } from 'aurelia-fetch-client'; this is above what does it do
+        //https://aurelia.io/docs/plugins/http-services#aurelia-http-client
+
+
+        //i dont think i need '/people/ params id because is only one put and there was two get so i think it was needed
+        //so right method was selected but if it doesnt work then 'people/ 
+        
+
+      
+        var data = {personsToUpdateId, personsUpdate}
+        var UpdatedPersonReturned = await this.http.fetch('/people/', {
+            method: 'PUT',
+            body: JSON.stringify(data),
+              //probably can reduce the init maybe dont need the headers 
+            headers: { 'Content-Type': 'application/json' }
+
+        }).then(function (response) {
+            if (!response.ok) {
+                //for this to work error need an int does my error send that from the put
+                throw new Error('Error ' + response.status);
+                }else { this.router.navigate('list'); }});
+
+                //one alternate form of dealing with response is using something like this
+                //}).then(res => res.json()).then(response => this.router.navigate('list'))
+         
+           
+    
+
+        //this is different from the form used above 
+        //const personResponse = await this.http.fetch(`/people/${params.id}`);
+       // this.personFetched(await personResponse.json());
+
 
         throw new Error('Not Implemented');
   }
