@@ -3,6 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using TechTest.Repositories;
 using TechTest.Repositories.Models;
 
+using System.Collections.Generic; //I added
+using Newtonsoft.Json; //I added
+using Newtonsoft.Json.Linq;//I added
+using System.Linq;
+
 namespace TechTest.Controllers
 {
     [Route("api/people")]
@@ -26,23 +31,31 @@ namespace TechTest.Controllers
             // people returned from PeopleRepository then an empty
             // JSON array should be returned.
 
-            
+
 
             //should i use system.runtime.serialization.Json
             //using System.Web.Script.Serialization;
             //string output = new JavaScriptSerializer().Serialize(ListOfMyObject);
 
-            
 
 
-            List<Person> allPeopleFound = PersonRepository.GetAll();
-            if (allPeopleFound.Count == 0) {
-                var JSONEmpty = { };
-                return JSONEmpty; }
+            //added to top of code
+            // using.systems.collections.generic;
+            //its ienumeral example asks for list so I am 
+            //List<Person> allPeopleFound =  (List<Person>) PersonRepository.GetAll();
+
+            //using var so dont have to do anything with it
+            var allPeopleFound = PersonRepository.GetAll();
+            if (allPeopleFound == null || !allPeopleFound.Any()) {
+
+                //empty json array
+                JArray JSONEmpty = new JArray();
+                return Ok(JSONEmpty); }
             else {
                 //returns enumerals collections
 
-                return allPeopleFound; }
+              
+                return Ok(allPeopleFound); }
             throw new NotImplementedException();
         }
         
@@ -60,15 +73,15 @@ namespace TechTest.Controllers
 
             if (PersonRepository.Get(id) != null)
             {
-                personFound = PersonRepository.Get(id);
+                Person personFound = PersonRepository.Get(id);
 
 
-                return personFound;
+                return Ok(personFound);
             }
             else
             {
                 //check http code
-                return NotFoundResult();
+                return NotFound();
             }
 
             throw new NotImplementedException();
@@ -94,35 +107,27 @@ namespace TechTest.Controllers
             
 
           
-            personUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<PersonUpdate>(personUpdate);
+           // personUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<PersonUpdate>(personUpdate);
+            
+            
             //if receive as var may need to cast id (or assumed by method)
-            var personToUpdate = Get(id);
-            if (personToUpdate = NotFoundResult) {
-                //check the httpcodes
-                return NotFoundResult(); }
-            else
-            {
-                //try catch may not be necessary and may mess with the async?
-                try
+            var personToUpdate = PersonRepository.Get(id);
+            
+              
                 {
                     Person personWithUpdates = new Person
                     {
-                        id = id,
-                        FirstName = person.FirstName,
-                        LastName = person.LastName,
+                        Id = id,
+                        FirstName = personToUpdate.FirstName,
+                        LastName = personToUpdate.LastName,
                         Authorised = personUpdate.Authorised,
                         Enabled = personUpdate.Enabled,
                         Colours = personUpdate.Colours
                     };
+                var callbackFromUpdate = PersonRepository.Update(personWithUpdates);
+                if (callbackFromUpdate==null) { return NotFound(); } else { return Ok();} ;
 
-                    PersonRepository.Update(person);
 
-
-                    //check the http codes
-                    return OkObjectResult();
-                }
-                //check the http codes
-                catch { return NotFoundResult(); }
             }
 
             throw new NotImplementedException();
