@@ -125,8 +125,8 @@ namespace TechTest.Controllers
                         Enabled = personUpdate.Enabled,
                         Colours = personUpdate.Colours
                     };
-                var callbackFromUpdate = PersonRepository.Update(personWithUpdates);
-                if (callbackFromUpdate==null) { return NotFound(); } else { return Ok();} ;
+                Person callbackFromUpdate = PersonRepository.Update(personWithUpdates);
+                if (callbackFromUpdate==null) { return NotFound(); } else { return Ok(callbackFromUpdate);} ;
 
 
             }

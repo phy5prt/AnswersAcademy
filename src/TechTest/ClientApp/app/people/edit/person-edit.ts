@@ -46,15 +46,22 @@ export class PersonEdit {
 
 
         //send a json request but the method doesnt want a json object but instruction for it says it does in step 3
-      
-         //here im grabbing the person made by person fetched
+
+        //here im grabbing the person made by person fetched
+        /*
         var personsUpdate = {
             Authorised: this.person.authorised,
             Enabled: this.person.enabled,
             Colours: this.person.colours
         };
-
-       
+        */
+        var personsUpdate = {
+            Authorised: ${ person.authorised },
+            Enabled: ${ person.enabled },
+            Colours: ${ person.colours }
+    
+    
+        };
        
        var personsToUpdateId =  this.person.id;
 
@@ -87,18 +94,31 @@ export class PersonEdit {
         
 
       
-        var data = {personsToUpdateId, personsUpdate}
-        var UpdatedPersonReturned = await this.http.fetch('/people/', {
-            method: 'PUT',
-            body: JSON.stringify(data),
-              //probably can reduce the init maybe dont need the headers 
-            headers: { 'Content-Type': 'application/json' }
+        var data = { personsToUpdateId, personsUpdate }
+        ///${params.id}
+        
+ 
+        //var UpdatedPersonReturned = await this.http.fetch('/people/${params.id}', {
 
-        }).then(function (response) {
+        //${params.id}
+        await this.http.fetch('/people/', {
+            method: 'PUT',
+
+            // [HttpPut("{id}")]
+           // public IActionResult Update(int id, PersonUpdate personUpdate)
+            body: data,
+            //body: JSON.stringify(data),
+              //probably can reduce the init maybe dont need the headers 
+            //headers: { 'Content-Type': 'application/json' }
+
+           
+
+          }).then(function (response) {
             if (!response.ok) {
                 //for this to work error need an int does my error send that from the put
                 throw new Error('Error ' + response.status);
-                }else { this.router.navigate('list'); }});
+                //was 'list'
+            } else { this.router.navigate('people'); }});
 
                 //one alternate form of dealing with response is using something like this
                 //}).then(res => res.json()).then(response => this.router.navigate('list'))

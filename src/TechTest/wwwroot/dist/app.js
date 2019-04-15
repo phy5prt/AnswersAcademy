@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bb0844375d11375f1387"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a3ffc56f80a09a359df7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -21103,116 +21103,10 @@ module.exports = "<template>\r\n  <section class=\"section\">\r\n    <div class=
 /***/ }),
 
 /***/ "app/people/edit/person-edit":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, __webpack_exports__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PersonEdit", function() { return PersonEdit; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__ = __webpack_require__("aurelia-framework");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_aurelia_router__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_person__ = __webpack_require__(28);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-let PersonEdit = class PersonEdit {
-    constructor(http, router) {
-        this.http = http;
-        this.router = router;
-        this.colourOptions = [];
-    }
-    async activate(params, routerConfig) {
-        this.routerConfig = routerConfig;
-        const personResponse = await this.http.fetch(`/people/${params.id}`);
-        this.personFetched(await personResponse.json());
-        const colourResponse = await this.http.fetch('/colours');
-        this.colourOptions = await colourResponse.json();
-    }
-    personFetched(person) {
-        this.person = new __WEBPACK_IMPORTED_MODULE_3__models_person__["a" /* Person */](person);
-        this.heading = `Update ${this.person.fullName}`;
-        this.routerConfig.navModel.setTitle(`Update ${this.person.fullName}`);
-    }
-    colourMatcher(favouriteColour, checkBoxColour) {
-        return favouriteColour.id === checkBoxColour.id;
-    }
-    async submit() {
-        // TODO: Step 7
-        //
-        // Implement the submit and save logic.
-        // Send a JSON request to the API with the newly updated
-        // this.person object. If the response is successful then
-        // the user should be navigated to the list page.
-        //send a json request but the method doesnt want a json object but instruction for it says it does in step 3
-        //here im grabbing the person made by person fetched
-        var personsUpdate = {
-            Authorised: this.person.authorised,
-            Enabled: this.person.enabled,
-            Colours: this.person.colours
-        };
-        var personsToUpdateId = this.person.id;
-        // this is where im going to try and send my object to, there is only one put so not sure i need id parameter [HttpPut("{id}")]
-        //bind holds the values when the form activates the submit
-        //Thoughts
-        // https://www.tutorialspoint.com/aurelia/aurelia_http.htm - clues
-        //https://github.com/mdn/fetch-examples - looked at
-        //other links didnt help
-        //if id refered not to the HTTP{id} but to the the method requiring (int id)  then the following may make more sense
-        //var UpdatedPersonReturned = await this.http.fetch(`/people/${params.id:this.personsToUpdateId, params.personUpdate: personsUpdate }`);
-        //but i think the attribute is clarifying the route
-        //import { HttpClient, json } from 'aurelia-fetch-client'; this is above what does it do
-        //https://aurelia.io/docs/plugins/http-services#aurelia-http-client
-        //i dont think i need '/people/ params id because is only one put and there was two get so i think it was needed
-        //so right method was selected but if it doesnt work then 'people/ 
-        var data = { personsToUpdateId, personsUpdate };
-        var UpdatedPersonReturned = await this.http.fetch('/people/', {
-            method: 'PUT',
-            body: JSON.stringify(data),
-            //probably can reduce the init maybe dont need the headers 
-            headers: { 'Content-Type': 'application/json' }
-        }).then(function (response) {
-            if (!response.ok) {
-                //for this to work error need an int does my error send that from the put
-                throw new Error('Error ' + response.status);
-            }
-            else {
-                this.router.navigate('list');
-            }
-        });
-        //one alternate form of dealing with response is using something like this
-        //}).then(res => res.json()).then(response => this.router.navigate('list'))
-        //this is different from the form used above 
-        //const personResponse = await this.http.fetch(`/people/${params.id}`);
-        // this.personFetched(await personResponse.json());
-        throw new Error('Not Implemented');
-    }
-    cancel() {
-        this.router.navigate('people');
-    }
-};
-PersonEdit = __decorate([
-    __WEBPACK_IMPORTED_MODULE_0_aurelia_framework__["c" /* autoinject */],
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_aurelia_fetch_client__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_1_aurelia_router__["b" /* Router */]])
-], PersonEdit);
-
-
-
-/***/ }),
-
-/***/ "app/people/edit/person-edit.html":
-/***/ (function(module, exports) {
-
-module.exports = "<template>\r\n  <h2 class=\"title\">${heading}</h2>\r\n\r\n  <form role=\"form\" submit.delegate=\"submit()\">\r\n\r\n    <fieldset class=\"box\">\r\n      <legend>User Details</legend>\r\n      <div class=\"field\">\r\n\r\n        <div class=\"control\">\r\n          <label class=\"checkbox\">\r\n            <input type=\"checkbox\" checked.bind=\"person.authorised\" name=\"authorised\" /> Authorised\r\n          </label>\r\n        </div>\r\n\r\n        <div class=\"control\">\r\n          <label class=\"checkbox\">\r\n            <input type=\"checkbox\" checked.bind=\"person.enabled\" name=\"enabled\" /> Enabled\r\n          </label>\r\n        </div>\r\n\r\n      </div>\r\n    </fieldset>\r\n\r\n    <fieldset class=\"box\">\r\n      <legend>Favourate Colours</legend>\r\n      <div class=\"field\">\r\n\r\n        <div class=\"control\" repeat.for=\"colour of colourOptions\">\r\n          <label class=\"checkbox\">\r\n            <input type=\"checkbox\" model.bind=\"colour\" checked.bind=\"person.colours\" matcher.bind=\"colourMatcher\" name=\"colours\"\r\n            /> ${colour.name}\r\n          </label>\r\n        </div>\r\n\r\n      </div>\r\n\r\n    </fieldset>\r\n\r\n    <div class=\"field is-grouped\">\r\n\r\n      <div class=\"control\">\r\n        <input class=\"button is-link\" type=\"submit\" value=\"Save Changes\" />\r\n      </div>\r\n\r\n      <div class=\"control\">\r\n        <button class=\"button is-light\" click.delegate=\"cancel()\">Cancel</button>\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </form>\r\n</template>\r\n";
+throw new Error("Module parse failed: C:\\Users\\Robert\\Desktop\\learning code\\EmployerChallenges\\answer-academy-dotnet\\src\\TechTest\\node_modules\\ts-loader\\index.js?silent=true!C:\\Users\\Robert\\Desktop\\learning code\\EmployerChallenges\\answer-academy-dotnet\\src\\TechTest\\ClientApp\\app\\people\\edit\\person-edit.ts Complex binding patterns require an initialization value (53:33)\nYou may need an appropriate loader to handle this file type.\n|         var personsUpdate = {\r\n|             Authorised: $\r\n|         }, { person, authorised }, Enabled, { person, enabled }, Colours, { person, colours };\r\n|     }\r\n|     ;\r");
 
 /***/ }),
 
@@ -21265,7 +21159,7 @@ PeopleList = __decorate([
 /***/ "app/people/list/people-list.html":
 /***/ (function(module, exports) {
 
-module.exports = "<template>\r\n  \r\n  <h2 class=\"title\">${heading}</h2>\r\n  <table class=\"table is-striped is-fullwidth\">\r\n    <thead>\r\n      <tr>\r\n        <th>Name</th>\r\n        <th>Palindrome</th>\r\n        <th>Authorised</th>\r\n        <th>Enabled</th>\r\n        <th>Colours</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n        <!--\r\n      TODO: Step 6\r\n      Add styles to Palindrome, Authorised and Enabled values.\r\n      When the value is Yes the text colour should be Green.\r\n      When the value is No the text colour should be Red.\r\n\r\n            Notes if it doesnt work\r\n\r\n        there isnt a green red style in the css i could find nor a styles sheet\r\n        so maybe wants me to do it in the html java\r\n        so think they want me just to change the yes nos into actions\r\n\r\n            html\r\n        <style=\"color:Green\">\r\n            jquery\r\n        $(this).css('color', 'red');\r\n            or without\r\n            document.queryselector\r\n            or innerhtml\r\n            this.innerHTML = \"style=\"color:Green\"\"\r\n            I could add ids\r\n            think im looking at template literals\r\n            so the yes and no will appear they just need the style adding individually rather\r\n            than applying it with an id or something to the td based on the tertiary outcome\r\n            dont think that works think it will print then htmp maybe need a /\r\n            I could remove the '' amd give yes and no a html script value\r\n            let Yes = innerHtml span color yes\r\n            or follow with \r\n            'Yes'.css('color',red); or let Yes = \"Yes\" then the {$Yes.css}\r\n            (this).css\r\n    -->\r\n\r\n        <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n            <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n\r\n\r\n\r\n            <td>${person.palindrome ? 'Yes' : 'No'}</td>\r\n\r\n            <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n            <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n            <!--\r\n\r\n            <td>${person.palindrome ? '<span style=\"color:green\">Yes</span>' : '<span style=\"color:red\">No</span>'}</td>\r\n        <td>${person.authorised ? 'Yes' : '<span style=\"color:red\">No</span>'}</td>\r\n        <td>${person.enabled ? '<span style=\"color:green\">Yes</span>' : '<span style=\"color:red\">No</span>'}</td>\r\n    -->\r\n            <td>${person.colours | colourNames }</td>\r\n        </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n</template>\r\n";
+module.exports = "<template>\r\n  \r\n  <h2 class=\"title\">${heading}</h2>\r\n  <table class=\"table is-striped is-fullwidth\">\r\n    <thead>\r\n      <tr>\r\n        <th>Name</th>\r\n        <th>Palindrome</th>\r\n        <th>Authorised</th>\r\n        <th>Enabled</th>\r\n        <th>Colours</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n\r\n        <!--\r\n      TODO: Step 6\r\n      Add styles to Palindrome, Authorised and Enabled values.\r\n      When the value is Yes the text colour should be Green.\r\n      When the value is No the text colour should be Red.\r\n\r\n      \r\n\r\n          \r\n    -->\r\n\r\n        <tr repeat.for=\"person of people\" person.bind=\"person\">\r\n            <td><a class=\"is-link\" href=\"/people/${person.id}\">${person.fullName}</a></td>\r\n\r\n\r\n            <!--\r\n     <td>${person.palindrome ? 'Yes' : 'No'}</td>\r\n\r\n     <td>${person.authorised ? 'Yes' : 'No'}</td>\r\n     <td>${person.enabled ? 'Yes' : 'No'}</td>\r\n                look up ignoring a chevron so not doubling calls - chevron ends the  template literal\r\n             \r\n    -->\r\n            \r\n\r\n            <td><span style=\"color: ${person.palindrome ? ' Green ' : ' Red '}\">${person.palindrome ? ' Yes ' : ' No '}</span></td>\r\n            <td><span style=\"color: ${person.authorised ? ' Green ' : ' Red '}\">${person.authorised ? ' Yes ' : ' No '}</span></td>\r\n            <td><span style=\"color: ${person.enabled ? ' Green ' : ' Red '}\">${person.enabled ? ' Yes ' : ' No '}</span></td>\r\n\r\n\r\n\r\n            <td>${person.colours | colourNames }</td>\r\n        </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n</template>\r\n";
 
 /***/ }),
 

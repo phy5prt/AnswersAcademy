@@ -19,47 +19,31 @@
       When the value is Yes the text colour should be Green.
       When the value is No the text colour should be Red.
 
-            Notes if it doesnt work
+      
 
-        there isnt a green red style in the css i could find nor a styles sheet
-        so maybe wants me to do it in the html java
-        so think they want me just to change the yes nos into actions
-
-            html
-        <style="color:Green">
-            jquery
-        $(this).css('color', 'red');
-            or without
-            document.queryselector
-            or innerhtml
-            this.innerHTML = "style="color:Green""
-            I could add ids
-            think im looking at template literals
-            so the yes and no will appear they just need the style adding individually rather
-            than applying it with an id or something to the td based on the tertiary outcome
-            dont think that works think it will print then htmp maybe need a /
-            I could remove the '' amd give yes and no a html script value
-            let Yes = innerHtml span color yes
-            or follow with 
-            'Yes'.css('color',red); or let Yes = "Yes" then the {$Yes.css}
-            (this).css
+          
     -->
 
         <tr repeat.for="person of people" person.bind="person">
             <td><a class="is-link" href="/people/${person.id}">${person.fullName}</a></td>
 
 
-
-            <td>${person.palindrome ? 'Yes' : 'No'}</td>
-
-            <td>${person.authorised ? 'Yes' : 'No'}</td>
-            <td>${person.enabled ? 'Yes' : 'No'}</td>
             <!--
+     <td>${person.palindrome ? 'Yes' : 'No'}</td>
 
-            <td>${person.palindrome ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
-        <td>${person.authorised ? 'Yes' : '<span style="color:red">No</span>'}</td>
-        <td>${person.enabled ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
+     <td>${person.authorised ? 'Yes' : 'No'}</td>
+     <td>${person.enabled ? 'Yes' : 'No'}</td>
+                look up ignoring a chevron so not doubling calls - chevron ends the  template literal
+             
     -->
+            
+
+            <td><span style="color: ${person.palindrome ? ' Green ' : ' Red '}">${person.palindrome ? ' Yes ' : ' No '}</span></td>
+            <td><span style="color: ${person.authorised ? ' Green ' : ' Red '}">${person.authorised ? ' Yes ' : ' No '}</span></td>
+            <td><span style="color: ${person.enabled ? ' Green ' : ' Red '}">${person.enabled ? ' Yes ' : ' No '}</span></td>
+
+
+
             <td>${person.colours | colourNames }</td>
         </tr>
     </tbody>
