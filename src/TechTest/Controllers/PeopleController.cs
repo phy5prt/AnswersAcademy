@@ -6,7 +6,8 @@ using TechTest.Repositories.Models;
 using System.Collections.Generic; //I added
 using Newtonsoft.Json; //I added
 using Newtonsoft.Json.Linq;//I added
-using System.Linq;
+using System.Linq; //I added
+using System.Diagnostics;
 
 namespace TechTest.Controllers
 {
@@ -110,9 +111,9 @@ namespace TechTest.Controllers
            // personUpdate = Newtonsoft.Json.JsonConvert.DeserializeObject<PersonUpdate>(personUpdate);
             
             
-            //if receive as var may need to cast id (or assumed by method)
+
             var personToUpdate = PersonRepository.Get(id);
-            
+           
               
                 {
                     Person personWithUpdates = new Person

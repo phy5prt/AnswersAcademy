@@ -47,12 +47,19 @@
 
         <tr repeat.for="person of people" person.bind="person">
             <td><a class="is-link" href="/people/${person.id}">${person.fullName}</a></td>
+
+
+
+            <td>${person.palindrome ? 'Yes' : 'No'}</td>
+
+            <td>${person.authorised ? 'Yes' : 'No'}</td>
+            <td>${person.enabled ? 'Yes' : 'No'}</td>
+            <!--
+
             <td>${person.palindrome ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
-
-            <td>${person.authorised ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
-            <td>${person.enabled ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
-
-         
+        <td>${person.authorised ? 'Yes' : '<span style="color:red">No</span>'}</td>
+        <td>${person.enabled ? '<span style="color:green">Yes</span>' : '<span style="color:red">No</span>'}</td>
+    -->
             <td>${person.colours | colourNames }</td>
         </tr>
     </tbody>

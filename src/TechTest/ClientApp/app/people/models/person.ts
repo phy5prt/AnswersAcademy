@@ -56,7 +56,7 @@ export class Person implements IPerson {
           if (noSpacesLowerCaseStr[i] !== noSpacesLowerCaseStr[noSpacesLowerCaseStr.length -1 -i]
               ) {
 
-              //when testing if always get false maybe were only returning from the loop
+              
               return false;
           }
       }

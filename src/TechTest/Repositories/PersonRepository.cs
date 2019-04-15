@@ -48,6 +48,7 @@ namespace TechTest.Repositories
 
         private static IList<Person> InMemoryCollection { get; } = new List<Person>
             {
+            
                 new Person { Id = 1, FirstName = "Bo", LastName = "Bob", Authorised = true, Enabled = false, Colours = new List<Colour> { new Colour { Id = 1, Name = "Red" } } },
                 new Person { Id = 2, FirstName = "Brian", LastName = "Allen", Authorised = true, Enabled = true, Colours = new List<Colour> { new Colour { Id = 1, Name = "Red" }, new Colour { Id = 2, Name = "Green" } , new Colour { Id = 3, Name = "Blue" } } },
                 new Person { Id = 3, FirstName = "Courtney", LastName = "Arnold", Authorised = true, Enabled = true, Colours = new List<Colour> { new Colour { Id = 1, Name = "Red" } } },
@@ -59,6 +60,7 @@ namespace TechTest.Repositories
                 new Person { Id = 9, FirstName = "Patrick", LastName = "Kerr", Authorised = true, Enabled = true, Colours = new List<Colour> { new Colour { Id = 2, Name = "Green" } } },
                 new Person { Id = 10, FirstName = "Sharon", LastName = "Halt", Authorised = false, Enabled = false, Colours = new List<Colour> { new Colour { Id = 1, Name = "Red" }, new Colour { Id = 2, Name = "Green" } , new Colour { Id = 3, Name = "Blue" } } },
                 new Person { Id = 11, FirstName = "Willis", LastName = "Tibbs", Authorised = true, Enabled = false, Colours = new List<Colour> { new Colour { Id = 1, Name = "Red" }, new Colour { Id = 2, Name = "Green" } , new Colour { Id = 3, Name = "Blue" } } },
-            };
+
+        };
     }
 }
