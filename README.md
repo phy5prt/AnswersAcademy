@@ -1,34 +1,27 @@
-# Answer Digital .NET TechTest
+Old MVC Test
 
-This technical test has 7 steps that you will need to complete. When running it prior to any steps, you will get an error due to a missing functionality.
 
-* Steps 1-3 : `PeopleController.cs`
-* Step 4 : `colour-names-value-converter.ts`
-* Step 5 : `person.ts`
-* Step 6 : `people-list.html`
-* Step 7 : `person-edit.ts`
+-----------------
 
-Each of the steps will have instructions as to what is expected to be done.
 
-**Requirements:**
+This is my main portfolio website. It is accessible at https://phy5prt.github.io/BootstrapPortfolioWebsite/
 
-* .NET Core 2.2 SDK - [https://dotnet.microsoft.com/download](https://dotnet.microsoft.com/download)
-* An IDE such as Visual Studio Community - [https://visualstudio.microsoft.com/downloads/](https://visualstudio.microsoft.com/downloads/)
-* node.js and npm - [https://nodejs.org/en/download/](https://nodejs.org/en/download/)
+This Website features: Simple animations for a little movement and colour. It is mobile friendly and easy to use. It has a contact page with a contact form using dataFire SaaS as a backend service utilising gmail api. It is just a clean, simple and professional site.
 
-**Instructions**
+My creative site is accessible at https://lit-escarpment-48431.herokuapp.com/ it has the same information though is more creatively displayed with backend database, filtering and animations. This site is not currently suitable for smaller devices.
 
-* Run `npm install` in `src/TechTest`
-* Open `TechTest.sln` in your preferred IDE
-* Search for the `TODO` items and work your way through steps 1 to 7
-* Send your finished solution to your recruiter or to Emma Andrews if applying direct.
+---------About Me and my repos-------
 
-**Submission**
+Hi my name is Phil Tate. I've taken a career break to learn the skills I need to be a software developer. These repos are of projects I've made.
 
-Before submission, make sure to remove the following folders:
+I have to portfolio websites:
 
-- `src/TechTest/node_modules`
-- `src/TechTest/bin`
-- `src/TechTest/obj`
+This is my creative portfolio website: https://lit-escarpment-48431.herokuapp.com/
 
-Or you could run the `cleanup.bat` and it should clean the folders for you.
+This is my bootstrap portfolio website: https://phy5prt.github.io/BootstrapPortfolioWebsite/
+
+You can also see some of my projects on:
+
+This is my gitHub: https://github.com/phy5prt
+
+This is my codepen: https://codepen.io/phy5prt
